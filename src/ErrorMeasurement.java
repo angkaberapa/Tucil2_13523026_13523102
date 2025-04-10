@@ -1,12 +1,12 @@
 public class ErrorMeasurement {
     public static double calculateError(int[][][] block, int x, int y, int width, int height, int method, double[] mean) {
         return switch (method) {
-            case 0 -> variance(block, x, y, width, height, mean);
-            case 1 -> mad(block, x, y, width, height, mean);
-            case 2 -> maxDiff(block, x, y, width, height);
-            case 3 -> entropy(block, x, y, width, height);
-            // case 4 -> // ssim(block, x, y, width, height);
-            default -> 0;
+            case 1 -> variance(block, x, y, width, height, mean);
+            case 2 -> mad(block, x, y, width, height, mean);
+            case 3 -> maxDiff(block, x, y, width, height);
+            case 4 -> entropy(block, x, y, width, height);
+            // case 5 -> // ssim(block, x, y, width, height);
+            default -> variance(block, x, y, width, height, mean);
         };
     }
 
@@ -14,8 +14,8 @@ public class ErrorMeasurement {
         int size = width * height;
 
         double var_rgb = 0;
-        for (int i = x; i < x + width; i++) {
-            for (int j = y; j < y + height; j++) {
+        for (int i = y; i < y + height; i++) { 
+            for (int j = x; j < x + width; j++) { 
                 for (int k = 0; k < 3; k++) {
                     var_rgb += Math.pow(block[i][j][k] - mean[k], 2);
                 }
@@ -30,8 +30,8 @@ public class ErrorMeasurement {
         int size = width * height;
 
         double mad_rgb = 0;
-        for (int i = x; i < x + width; i++) {
-            for (int j = y; j < y + height; j++) {
+        for (int i = y; i < y + height; i++) { 
+            for (int j = x; j < x + width; j++) { 
                 for (int k = 0; k < 3; k++) {
                     mad_rgb += Math.abs(block[i][j][k] - mean[k]);
                 }
@@ -50,8 +50,8 @@ public class ErrorMeasurement {
             min[k] = Double.MAX_VALUE;
         }
 
-        for (int i = x; i < x + width; i++) {
-            for (int j = y; j < y + height; j++) {
+        for (int i = y; i < y + height; i++) { 
+            for (int j = x; j < x + width; j++) { 
                 for (int k = 0; k < 3; k++) {
                     if (block[i][j][k] > max[k]) {
                         max[k] = block[i][j][k];
@@ -76,8 +76,8 @@ public class ErrorMeasurement {
         double[][] histogram = new double[256][3];
         int size = width * height;
 
-        for (int i = x; i < x + width; i++) {
-            for (int j = y; j < y + height; j++) {
+        for (int i = y; i < y + height; i++) { 
+            for (int j = x; j < x + width; j++) { 
                 for (int k = 0; k < 3; k++) {
                     histogram[block[i][j][k]][k]++;
                 }
