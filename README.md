@@ -31,7 +31,7 @@ Tugas Kecil 2 Strategi Algoritma menilai mengenai implementasi algoritma Divide 
 8. Masukkan nama atau path gambar hasil kompresl
 9. Menunggu hasil dari kompresi gambar. Bila kompresi telah selesai dilakukan, hasil output akan berada di path yang diberikan. Hasil ini juga bersamaan dengan file .GIF yang merupakan visualisasi pembentukan Quadtree dalam kompresi gambar
 > [!Note]
-> Pembagian dilakukan dari sudut kiri atas terlebih dahulu sehingga GIF juga akan memulai dari sana. Selain itu, dikarenakan algoritma yang digunakan, sangat disarankan untuk menggunakan ukuran blok minimum yang besar untuk melihat hasil GIF yang jelas.
+> Pembagian dilakukan dari sudut kiri atas terlebih dahulu sehingga GIF juga akan memulai dari sana. Dikarenakan algoritma yang digunakan, sangat disarankan untuk menggunakan ukuran blok minimum yang besar untuk melihat hasil GIF yang jelas. Selain itu, GIF dibuat dari banyak frame. Kondisi frame yang disimpan untuk GIF adalah ketika node merupakan kelipatan 50. Jika ingin melihat lebih detail, dapat mengubah kode pada file QuadTreeNode.java baris 34 di dalam prosedur divide dan mengubah 100 yang ada pada `ImageData.totalNodes % 100 == 0`
 
 
 ## Kelompok
