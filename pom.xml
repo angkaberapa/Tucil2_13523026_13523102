@@ -42,6 +42,7 @@
     </dependencies>
 
     <build>
+        <directory>${project.basedir}/bin</directory>
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
