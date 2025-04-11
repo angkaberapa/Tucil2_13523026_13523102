@@ -18,7 +18,7 @@ public class Utils {
         return mean;
     }
 
-    public static void fillBlock(int[][][] block, int x, int y, int width, int height, double[] color) {
+    public static void fillBlock(int[][][] block, int x, int y, int width, int height, double[] color, int[][][] gif) {
         int[] colorInt = new int[3];
         for (int k = 0; k < 3; k++) {
             colorInt[k] = (int) Math.round(color[k]);
@@ -27,6 +27,9 @@ public class Utils {
             for (int j = x; j < x + width; j++) {
                 for (int k = 0; k < 3; k++) {
                     block[i][j][k] = colorInt[k];
+                    if (gif != null) {
+                        gif[i][j][k] = colorInt[k];
+                    }
                 }
             }
         }
@@ -40,6 +43,26 @@ public class Utils {
                     to[i][j][k] = from[i][j][k];
                 }
             }
+        }
+    }
+
+    public static int totalNodePrediction(double complexity, int minBlockSize, double threshold){
+        double temp = 1;
+        double min = minBlockSize;
+        temp = complexity*(ImageData.originalSize/min)*(1/threshold+1e5);
+        int total = (int) Math.round(temp);
+        return total;
+    }
+
+    public static int basePrediction(int totalNodes){
+        if (totalNodes <= 300){
+            return 1;
+        } else {
+            int temp = Math.round(totalNodes/300);
+            if (temp*4 <=300){
+                return temp;
+            }
+            return temp/4;
         }
     }
 }

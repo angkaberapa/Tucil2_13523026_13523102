@@ -6,7 +6,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // 1. INPUT: path gambar
-        System.out.print("Masukkan path gambar input (misal: img/input.png): ");
+        System.out.print("Masukkan nama gambar input yang ada di folder test (misal: input.png): ");
         String inputPath = sc.nextLine();
 
         // 2. Load gambar
@@ -40,9 +40,14 @@ public class Main {
 
         sc.close();
 
+        System.out.println("\nMembaca gambar...");
         long start = System.currentTimeMillis();
         if(ImageData.targetCompressionRate == 0){
             QuadTreeNode root = new QuadTreeNode(0, 0, ImageData.imageWidth, ImageData.imageHeight);
+            
+            ImageData.nodePrediction = Utils.totalNodePrediction(0.5, ImageData.minBlockSize, ImageData.threshold);
+            ImageData.base = Utils.basePrediction(ImageData.nodePrediction);
+
             root.divide(0); // 8. Kompresi gambar
         }
         else{
@@ -55,12 +60,13 @@ public class Main {
         ImageData.saveImage(outputPath);
 
         // Bonus: Simpan GIF
+        System.out.println("\nMenyimpan GIF...");
         String gifPath = outputPath.substring(0, outputPath.lastIndexOf('.')) + ".gif";
 
         BufferedImage[] bufferedFrames = GIF.snapshotFrames.toArray(new BufferedImage[0]);
         
         try {
-            // System.out.println("Jumlah frame: " + GIF.snapshotFrames.size()); // Debugging
+            System.out.println("Jumlah frame pada GIF: " + GIF.snapshotFrames.size()); // Debugging
             GIF.saveGIF(bufferedFrames, gifPath, 100); // atur speed GIF yang diinginkan (ms per frame)
         } catch (Exception e) {
             System.out.println("Error saat menyimpan GIF: " + e.getMessage());

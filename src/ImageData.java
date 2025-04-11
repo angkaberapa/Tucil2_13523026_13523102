@@ -21,14 +21,20 @@ public class ImageData {
     public static double originalSize;
     public static double compressedSize;
 
+    public static int[][][]imageGIF;
+    public static int nodePrediction;
+    public static int base;
+
     public static void loadImage(String path) {
         try {
+            path = "test/" + path;
             File file = new File(path);
             originalSize = file.length() / 1024; // in kB
             BufferedImage image = ImageIO.read(file);
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
             imageRGB = new int[imageHeight][imageWidth][3];
+            imageGIF = new int[imageHeight][imageWidth][3];
 
             for (int y = 0; y < imageHeight; y++) {
                 for (int x = 0; x < imageWidth; x++) {
