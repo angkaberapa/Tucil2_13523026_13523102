@@ -21,9 +21,11 @@ public class ImageData {
     public static double originalSize;
     public static double compressedSize;
 
+    // variabel untuk GIF
     public static int[][][]imageGIF;
-    public static int nodePrediction;
-    public static int base;
+    public static int nodePrediction=1;
+    public static int base=1;
+    public static boolean isTarget = false;
 
     public static void loadImage(String path) {
         try {
@@ -63,6 +65,7 @@ public class ImageData {
         }
 
         try {
+            path = "test/" + path;
             File outputFile = new File(path);
             ImageIO.write(output, "jpg", outputFile);
             System.out.println("Gambar berhasil disimpan ke: " + path);
