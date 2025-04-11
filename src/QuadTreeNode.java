@@ -1,5 +1,3 @@
-import java.awt.Image;
-
 public class QuadTreeNode {
     private int x, y, width, height;
     private double[] avgColorRGB = new double[3];

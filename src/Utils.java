@@ -49,20 +49,22 @@ public class Utils {
     public static int totalNodePrediction(double complexity, int minBlockSize, double threshold){
         double temp = 1;
         double min = minBlockSize;
-        temp = complexity*(ImageData.originalSize/min)*(1/threshold+1e5);
+        temp = complexity*(ImageData.originalSize/min)*(1/(threshold+1e5));
         int total = (int) Math.round(temp);
         return total;
     }
 
-    public static int basePrediction(int totalNodes){
-        if (totalNodes <= 300){
-            return 1;
-        } else {
-            int temp = Math.round(totalNodes/300);
-            if (temp*4 <=300){
-                return temp;
-            }
-            return temp/4;
-        }
+    public static int basePrediction(int totalNodes, int counter){
+        int base = (int) Math.ceil(totalNodes / (4.0 * 300));
+        return Math.max(base, 1);
+        // if (totalNodes <= 300){
+        //     return 1;
+        // } else {
+        //     int temp = Math.round(totalNodes/300);
+        //     if (temp*counter*4 <=300){
+        //         return temp*counter;
+        //     }
+        //     return basePrediction(temp, counter+1);
+        // }
     }
 }
