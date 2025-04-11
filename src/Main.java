@@ -29,7 +29,7 @@ public class Main {
         ImageData.minBlockSize = sc.nextInt();
 
         // 6. INPUT: target kompresi (bonus, bisa 0)
-        System.out.print("Masukkan target persentase kompresi (0 jika tidak digunakan): ");
+        System.out.print("Masukkan target persentase kompresi dalam persen (1-100) (0 jika tidak digunakan): ");
         ImageData.targetCompressionRate = sc.nextDouble();
 
         // 7. INPUT: output path
@@ -38,10 +38,15 @@ public class Main {
         String outputPath = sc.nextLine();
 
         sc.close();
-        
+
         long start = System.currentTimeMillis();
-        QuadTreeNode root = new QuadTreeNode(0, 0, ImageData.imageWidth, ImageData.imageHeight);
-        root.divide(0); // 8. Kompresi gambar
+        if(ImageData.targetCompressionRate == 0){
+            QuadTreeNode root = new QuadTreeNode(0, 0, ImageData.imageWidth, ImageData.imageHeight);
+            root.divide(0); // 8. Kompresi gambar
+        }
+        else{
+            TargetCompression.compressToTargetPercentage();
+        }
 
         long end = System.currentTimeMillis();
 
@@ -57,5 +62,8 @@ public class Main {
                 (100.0 * (1 - ((double) ImageData.compressedSize / ImageData.originalSize))) + " %");
         System.out.println("Jumlah simpul: " + ImageData.totalNodes);
         System.out.println("Kedalaman pohon: " + ImageData.maxDepth);
+        if(ImageData.targetCompressionRate != 0){
+            System.out.println("Nilai threshold yang digunakan: " + ImageData.threshold);
+        }
     }
 }

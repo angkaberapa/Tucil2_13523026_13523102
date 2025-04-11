@@ -31,4 +31,15 @@ public class Utils {
             }
         }
     }
+
+    // Helper: copy array 3D
+    public static void copyImage(int[][][] from, int[][][] to) {
+        for (int i = 0; i < from.length; i++) {
+            for (int j = 0; j < from[0].length; j++) {
+                for (int k = 0; k < 3; k++) {
+                    to[i][j][k] = from[i][j][k];
+                }
+            }
+        }
+    }
 }
