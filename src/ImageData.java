@@ -65,7 +65,7 @@ public class ImageData {
             System.out.println("Gagal menyimpan gambar: " + e.getMessage());
         }
     }
-
+  
     public static BufferedImage convertImage(int[][][] image){
         BufferedImage output = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < imageHeight; y++) {
@@ -79,5 +79,4 @@ public class ImageData {
         }
         return output;
     }
-
 }
