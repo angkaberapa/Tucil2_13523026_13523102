@@ -12,6 +12,7 @@ public class GIF {
     public static void saveGIF(BufferedImage[] frames, String outputPath, int delayMs) throws IOException {
         int[] delays = new int[frames.length];
         Arrays.fill(delays, delayMs);
+        outputPath = "test/" + outputPath;
 
         try (FileOutputStream out = new FileOutputStream(outputPath)) {
             GIFTweaker.writeAnimatedGIF(frames, delays, out);
