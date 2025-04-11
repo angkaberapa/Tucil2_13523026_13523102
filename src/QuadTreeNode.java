@@ -30,6 +30,11 @@ public class QuadTreeNode {
             isLeaf = true;
             avgColorRGB = Utils.averageRGB(ImageData.imageRGB, x, y, width, height);
             Utils.fillBlock(ImageData.imageRGB, x, y, width, height, avgColorRGB);
+
+            // kondisi size untuk menghindari memory out of bound
+            if (GIF.snapshotFrames.size() <= 300 && ImageData.totalNodes % 100 == 0) { // pada kelipatan berapa frame akan disimpan
+                GIF.snapshotFrames.add(ImageData.convertImage(ImageData.imageRGB)); // Save kondisi image saat ini menjadi frame GIF
+            }
             return;
         }
 

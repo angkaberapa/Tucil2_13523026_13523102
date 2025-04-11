@@ -1,3 +1,4 @@
+import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
 public class Main {
@@ -47,6 +48,18 @@ public class Main {
 
         // 9. Simpan hasil
         ImageData.saveImage(outputPath);
+
+        // Bonus: Simpan GIF
+        String gifPath = outputPath.substring(0, outputPath.lastIndexOf('.')) + ".gif";
+
+        BufferedImage[] bufferedFrames = GIF.snapshotFrames.toArray(new BufferedImage[0]);
+        
+        try {
+            // System.out.println("Jumlah frame: " + GIF.snapshotFrames.size()); // Debugging
+            GIF.saveGIF(bufferedFrames, gifPath, 100); // atur speed GIF yang diinginkan (ms per frame)
+        } catch (Exception e) {
+            System.out.println("Error saat menyimpan GIF: " + e.getMessage());
+        }
 
         // 10. Output statistik
         System.out.println("\n--- HASIL ---");
