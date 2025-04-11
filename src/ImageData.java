@@ -65,4 +65,18 @@ public class ImageData {
             System.out.println("Gagal menyimpan gambar: " + e.getMessage());
         }
     }
+  
+    public static BufferedImage convertImage(int[][][] image){
+        BufferedImage output = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < imageHeight; y++) {
+            for (int x = 0; x < imageWidth; x++) {
+                int r = image[y][x][0];
+                int g = image[y][x][1];
+                int b = image[y][x][2];
+                int rgb = (r << 16) | (g << 8) | b;
+                output.setRGB(x, y, rgb);
+            }
+        }
+        return output;
+    }
 }
