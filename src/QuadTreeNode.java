@@ -1,3 +1,5 @@
+import java.awt.Image;
+
 public class QuadTreeNode {
     private int x, y, width, height;
     private double[] avgColorRGB = new double[3];
@@ -17,7 +19,7 @@ public class QuadTreeNode {
     }
 
     public void divide(int depth) {
-        if (ImageData.totalNodes==0){
+        if ((ImageData.totalNodes==0) && (GIF.snapshotFrames.size() <= 300) && (ImageData.isTarget==false)) {
             // Initialize the first node with the average color of the entire image
             avgColorRGB = Utils.averageRGB(ImageData.imageRGB, 0, 0, ImageData.imageWidth, ImageData.imageHeight);
             Utils.fillBlock(ImageData.imageGIF, 0, 0, ImageData.imageWidth, ImageData.imageHeight, avgColorRGB, null);
@@ -38,7 +40,7 @@ public class QuadTreeNode {
             avgColorRGB = Utils.averageRGB(ImageData.imageRGB, x, y, width, height);
             Utils.fillBlock(ImageData.imageRGB, x, y, width, height, avgColorRGB, ImageData.imageGIF);
 
-            if (GIF.snapshotFrames.size() <= 300 && ImageData.totalNodes % 4*ImageData.base == 0) {
+            if ((GIF.snapshotFrames.size() <= 300) && (ImageData.totalNodes % (4*ImageData.base) == 0) && (ImageData.isTarget==false)) {
                 GIF.snapshotFrames.add(ImageData.convertImage(ImageData.imageGIF)); // Save kondisi image saat ini menjadi frame GIF
             }
             return;
@@ -53,7 +55,7 @@ public class QuadTreeNode {
         bottomLeft = new QuadTreeNode(x, y + newHeight, newWidth, height - newHeight);
         bottomRight = new QuadTreeNode(x + newWidth, y + newHeight, width - newWidth , height - newHeight);
 
-        if (ImageData.totalNodes == 1) {
+        if ((ImageData.totalNodes == 1) && (GIF.snapshotFrames.size() <= 300) && (ImageData.isTarget==false)) {
             avgColorRGB = Utils.averageRGB(ImageData.imageRGB, x, y, newWidth, newHeight);
             Utils.fillBlock(ImageData.imageGIF, x, y, newWidth, newHeight, avgColorRGB, null);
             GIF.snapshotFrames.add(ImageData.convertImage(ImageData.imageGIF));

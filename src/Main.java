@@ -12,6 +12,11 @@ public class Main {
         // 2. Load gambar
         ImageData.loadImage(inputPath);
 
+        if (ImageData.imageRGB == null) {
+            System.out.println("Gambar tidak ditemukan pada folder test\nKeluar dari program...");
+            System.exit(1);
+        }
+
         // 3. INPUT: metode error
         System.out.println("1. Variance");
         System.out.println("2. MAD");
@@ -35,23 +40,33 @@ public class Main {
 
         // 7. INPUT: output path
         sc.nextLine(); // buang newline
-        System.out.print("Masukkan path gambar hasil (misal: img/output.png): ");
+        System.out.print("Masukkan nama file gambar hasil (misal: output.png): ");
         String outputPath = sc.nextLine();
 
         sc.close();
 
-        System.out.println("\nMembaca gambar...");
+        System.out.println("\nKompresi gambar...");
         long start = System.currentTimeMillis();
         if(ImageData.targetCompressionRate == 0){
             QuadTreeNode root = new QuadTreeNode(0, 0, ImageData.imageWidth, ImageData.imageHeight);
             
             ImageData.nodePrediction = Utils.totalNodePrediction(0.5, ImageData.minBlockSize, ImageData.threshold);
-            ImageData.base = Utils.basePrediction(ImageData.nodePrediction);
+            ImageData.base = Utils.basePrediction(ImageData.nodePrediction, 1);
+
+            // System.out.println("Perkiraan jumlah simpul: " + ImageData.nodePrediction); // Debugging
+            // System.out.println("Perkiraan yg dikali 4: " + ImageData.base); // Debugging
 
             root.divide(0); // 8. Kompresi gambar
         }
         else{
+            ImageData.isTarget = true;
+            QuadTreeNode oriRoot = new QuadTreeNode(0, 0, ImageData.imageWidth, ImageData.imageHeight);
+
             TargetCompression.compressToTargetPercentage();
+
+            ImageData.isTarget = false;
+            ImageData.base = Utils.basePrediction(ImageData.totalNodes, 1);
+            oriRoot.divide(0);
         }
 
         long end = System.currentTimeMillis();

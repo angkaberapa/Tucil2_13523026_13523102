@@ -56,9 +56,10 @@ public class TargetCompression {
             }
         }
         // simpan closest to ImageData.imageRGB
-        Utils.copyImage(closestImageRGB, ImageData.imageRGB);
+        Utils.copyImage(tempImageRGB, ImageData.imageRGB);
         ImageData.threshold = mostOptimalThreshold;
-        ImageData.totalNodes = tempTotalNodes;
-        ImageData.maxDepth = tempMaxDepth;
+        ImageData.nodePrediction = tempTotalNodes;
+        ImageData.totalNodes = 0;
+        ImageData.maxDepth = 0;
     }
 }
